@@ -46,7 +46,9 @@ FlowAdam introduces **soft momentum injection** during ODE transitions:
 
 ### Ablation: Hard vs Soft Injection
 <p align="center">
-  <img src="figures/ablation_injection.png" width="700">
+  <a href="figures/ablation_injection.png">
+    <img src="figures/ablation_injection.png" width="450">
+  </a>
 </p>
 
 ## Installation
