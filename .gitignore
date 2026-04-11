@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Notebooks / checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Tooling
+.vscode/
+.idea/
+.DS_Store
+
+# Experiment artifacts
+results/
+logs/
+runs/
+wandb/
+*.png
+*.pdf
+*.svg
+*.csv
+*.json
+*.txt
+
+# Paper figures (allowed)
+!figures/*.png
+
+# Data
+data/
+*.npy
+*.npz
+*.pkl
+*.pth
+*.pt
+*.zip
+*.gz
+*.xls
+*.xlsx
