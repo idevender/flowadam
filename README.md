@@ -29,17 +29,17 @@ FlowAdam introduces **soft momentum injection** during ODE transitions:
 
 ## Key Results
 
-### Implicit Regularization via Matrix Completion (Fig. 2)
+### Implicit Regularization via Matrix Completion
 <p align="center">
   <img src="figures/matrix_completion_v2.png" width="700">
 </p>
 
-### Compute-Fairness Analysis (Fig. 3)
+### Compute-Fairness Analysis
 <p align="center">
   <img src="figures/fig3_compute_fairness_matrix.png" width="700">
 </p>
 
-### Sensitivity Analysis (Fig. 4)
+### Sensitivity Analysis
 <p align="center">
   <img src="figures/fig4_sensitivity_combined.png" width="700">
 </p>
