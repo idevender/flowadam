@@ -6,18 +6,9 @@ from torch.optim import Optimizer
 from torchdiffeq import odeint
 
 
-def sync():
-    """
-    Synchronize CUDA operations for accurate timing.
-    No-op if CUDA is not available.
-    """
-    if torch.cuda.is_available():
-        torch.cuda.synchronize()
-
-
 class FlowAdam(Optimizer):
     """
-    FlowAdam V2.2 - Adaptive Hybrid Optimizer with Soft Momentum Injection.
+    FlowAdam - Adaptive hybrid optimizer with soft momentum injection.
     
     Combines Adam optimization with ODE gradient flow for navigating
     difficult loss landscape regions (plateaus and stiff curvature).
@@ -62,9 +53,9 @@ class FlowAdam(Optimizer):
                 "ode_t_scale": 2.0,
             },
             "B": {
-                "switch_sensitivity": 0.5,
-                "curvature_sensitivity": 2.0,
-                "ode_t_scale": 1.0,
+                "switch_sensitivity": 0.9,
+                "curvature_sensitivity": 0.1,
+                "ode_t_scale": 0.5,
             },
         }
         if mode not in presets:
@@ -208,7 +199,6 @@ class FlowAdam(Optimizer):
             y0 = self._flatten(all_params)
             old_params_flat = y0.clone()
             
-            nfe_before = stats['_current_ode_nfe']
             stats['_current_ode_nfe'] = 0  # Reset counter for this trigger
 
             def ode_func(t, y_flat):

@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 
 from flowadam import FlowAdam
 
@@ -172,7 +171,7 @@ for scenario in scenarios:
             adamw_err = train_adamw(data, config, weight_decay_override=wd)
             adamw_results[wd].append(adamw_err)
         
-        winner = "[OK]" if flow_err < adam_err else "[FAIL]"
+        winner = "" if flow_err < adam_err else ""
         print(f"  Seed {seed}: Adam={adam_err:.4f}, FlowAdam={flow_err:.4f} (ODE={ode}) {winner}")
     
     adam_mean, adam_std = np.mean(adam_results), np.std(adam_results)
@@ -200,7 +199,7 @@ for scenario in scenarios:
     print(f"  Improvement vs Adam: {improvement:+.1f}%, Wins: {wins}/{len(seeds)}")
     
     if best_adamw_mean > adam_mean:
-        print(f"  [WARN]  AdamW WORSE than Adam (consistent with matrix completion hypothesis)")
+        print(f"   AdamW WORSE than Adam (consistent with matrix completion hypothesis)")
     
     all_results.append({
         'scenario': scenario['name'],
@@ -211,7 +210,7 @@ for scenario in scenarios:
     })
 
 print("\n" + "=" * 70)
-print("SUMMARY TABLE (for paper if needed):")
+print("SUMMARY TABLE:")
 print("=" * 70)
 print(f"{'Scenario':<15} {'Adam':<15} {'AdamW*':<25} {'FlowAdam':<15} {'Improv'}")
 print("-" * 80)

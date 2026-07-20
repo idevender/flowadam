@@ -5,7 +5,6 @@ import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys
 from flowadam import FlowAdam
 
 
@@ -124,7 +123,7 @@ def main():
     
     if loss_flow[-1] < loss_adam[-1]:
         improvement = (loss_adam[-1] - loss_flow[-1]) / loss_adam[-1] * 100
-        print(f"\n[NOTE] FlowAdam WINS! {improvement:.1f}% better final loss")
+        print(f"\nFlowAdam WINS! {improvement:.1f}% better final loss")
     else:
         print(f"\nAdam had lower final loss")
     

@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -331,11 +330,11 @@ def print_summary(results, config):
     print(f"FlowAdam wins: {wins}/{len(adam_vals)}")
     
     if improvement_mean >= 10:
-        print("\n[OK] SUCCESS: FlowAdam achieves 10%+ mean improvement!")
+        print("\nFlowAdam achieves 10%+ mean improvement.")
     elif improvement_mean > 0:
-        print(f"\n[WARN]  PARTIAL: FlowAdam better by {improvement_mean:.1f}% (target: 10%+)")
+        print(f"\n PARTIAL: FlowAdam better by {improvement_mean:.1f}% (target: 10%+)")
     else:
-        print("\n[FAIL] FAILED: Baselines win")
+        print("\nFAILED: Baselines win")
     
     print("="*80)
 

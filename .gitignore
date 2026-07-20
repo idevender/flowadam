@@ -44,6 +44,9 @@ wandb/
 # Paper figures (allowed)
 !figures/*.png
 
+# Project files (allowed despite patterns above)
+!requirements.txt
+
 # Data
 data/
 *.npy

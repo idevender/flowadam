@@ -17,3 +17,25 @@ Standalone scripts used for the FlowAdam benchmark suite.
 - `gnn_link_prediction.py`: GNN link prediction benchmark.
 - `inverse_kinematics.py`: Multi-target inverse kinematics benchmark.
 - `gamma_ablation.py`: Momentum blend gamma ablation.
+
+## FlowAdam settings per experiment
+
+Each script sets `switch_sensitivity`, `curvature_sensitivity`, and `ode_t_scale`
+explicitly (overriding the `mode` preset). The values actually used are:
+
+| Script | switch | curvature | ode_t_scale | Closest preset |
+|---|---:|---:|---:|---|
+| `matrix_completion.py` | 0.90 | 0.1 | 0.5 | B |
+| `tensor_completion.py` | 0.90 | 0.1 | 0.5 | B |
+| `robust_factorization.py` | 0.90 | 0.1 | 0.5 | B |
+| `movielens.py` | 0.90 | 0.1 | 0.5 | B |
+| `jester.py` | 0.90 | 0.1 | 0.5 | B |
+| `rotated_quadratic.py` | 0.90 | 0.1 | 0.5 | B |
+| `gamma_ablation.py` | 0.90 | 0.1 | 0.5 | B |
+| `inverse_kinematics.py` | 0.90 | 1.5 | 0.5 | B (curvature tuned) |
+| `gnn_link_prediction.py` | 0.50 | 1.5 | 1.0 | between A and B |
+| `ill_conditioned_regression.py` | 0.40 | 2.5 | 1.0 | between A and B |
+| `rosenbrock.py` | 0.50 | 2.0 | 1.0 | between A and B |
+| `two_spirals.py` | 0.50 | 2.0 | 1.0 | between A and B |
+| `ablation_injection.py` | 0.50 | 2.0 | 1.0 | between A and B |
+| `cifar10.py` | 0.40 | 3.0 | 2.0 | A |

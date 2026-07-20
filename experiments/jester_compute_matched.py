@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 import os
 from pathlib import Path
 import urllib.request
@@ -379,22 +378,22 @@ def main():
     print(f"Improvement vs Adam Ext (COMPUTE-MATCHED):     {imp_vs_ext:+.1f}% ({wins_ext}/{len(seeds)} wins)")
     
     if best_adamw_mean > adam_mean:
-        print(f"\n[WARN]  AdamW WORSE than Adam (consistent with matrix completion hypothesis)")
+        print(f"\n AdamW WORSE than Adam (consistent with matrix completion hypothesis)")
     else:
         print(f"\nAdamW better than Adam by {(adam_mean - best_adamw_mean)/adam_mean*100:.1f}%")
 
     if improvement > 5:
-        print("\n[SUCCESS] REAL-WORLD IMPROVEMENT! Add this to the paper.")
+        print("\nFlowAdam improves over Adam on Jester.")
     elif improvement > 0:
-        print("\n[OK] Small improvement. May be worth reporting.")
+        print("\nSmall improvement. May be worth reporting.")
     else:
-        print("\n[NOTE] No improvement. Jester may also be bias-dominated.")
+        print("\nNo improvement. Jester may also be bias-dominated.")
 
     generate_jester_figures(seeds, adam_results, flow_results,
                            adam_mean, adam_std, flow_mean, flow_std)
 
     print("\n" + "=" * 80)
-    print("COMPUTE-MATCHED SUMMARY (for paper)")
+    print("COMPUTE-MATCHED SUMMARY")
     print("=" * 80)
     print(f"FlowAdam vs Adam Extended (same compute budget):")
     print(f"  FlowAdam:      {flow_mean:.4f} +/- {flow_std:.4f}")
@@ -518,7 +517,7 @@ def generate_jester_figures(seeds, adam_results, flow_results,
           f"FlowAdam={flow_mean:.4f}+/-{flow_std:.4f}")
     print(f"  Overall: delta=-{overall_improvement:.1f}%, {wins}/{len(seeds)} wins")
     print("-" * 70)
-    print("[OK] Figures saved in IEEE-compatible format")
+    print("Figures saved in IEEE-compatible format")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,6 @@ import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -156,7 +155,7 @@ def run_experiment(config, seeds=[42, 123, 456, 789, 999]):
         adam_times.append(adam_time)
         flow_times.append(flow_time)
         
-        winner = "[OK] FlowAdam" if flow_rmse < adam_rmse else "[FAIL] Adam"
+        winner = "FlowAdam" if flow_rmse < adam_rmse else "Adam"
         print(f"  Seed {seed}: Adam={adam_rmse:.4f} ({adam_time:.1f}s), FlowAdam={flow_rmse:.4f} ({flow_time:.1f}s, ODE={ode_count}) -> {winner}")
     
     return adam_results, flow_results, adam_times, flow_times
@@ -241,7 +240,7 @@ def run_three_scenarios():
         print(f"    FlowAdam: {flow_mean:.4f} +/- {flow_std:.4f}  ({flow_time_mean:.1f}s)")
         print(f"    Wins: {wins}/5, Improvement: {improvement:.1f}%, Time overhead: {time_overhead:+.0f}%")
         if flow_mean < adam_mean:
-            print(f"    [NOTE] FlowAdam WINS!")
+            print(f"    FlowAdam WINS!")
     
     print("\n" + "=" * 90)
     print("FINAL SUMMARY")
@@ -260,11 +259,8 @@ def run_three_scenarios():
               f"{r['time_overhead']:>+5.0f}%")
     
     print("-" * 90)
-    print("KEY: Regularization IN THE LOSS (not gradient-based weight decay)")
-    print("     -> ODE integrates the TRUE regularized landscape")
-    print("     -> Implicit regularization from frequent ODE triggers")
-    print("\nTIMING NOTE: FlowAdam overhead is modest (typically 2-4x) and justified by")
-    print("             10-22% better GENERALIZATION. Total runtime stays under 1 minute.")
+    print("Regularization is applied in the loss (not optimizer weight decay), so the")
+    print("ODE integrates the regularized landscape.")
     print("=" * 90)
     
     return all_results
@@ -314,9 +310,9 @@ def main():
         
         if flow_rmse < adam_rmse:
             improvement = (adam_rmse - flow_rmse) / adam_rmse * 100
-            print(f"\n[NOTE] FlowAdam WINS by {improvement:.1f}%!")
+            print(f"\nFlowAdam WINS by {improvement:.1f}%!")
         else:
-            print(f"\n[FAIL] Adam wins")
+            print(f"\nAdam wins")
 
 
 if __name__ == "__main__":

@@ -10,4 +10,14 @@ setup(
         "torch>=2.0",
         "torchdiffeq>=0.2",
     ],
+    extras_require={
+        "experiments": [
+            "numpy",
+            "scipy",
+            "matplotlib",
+            "pandas",
+            "xlrd",
+            "torchvision",
+        ],
+    },
 )

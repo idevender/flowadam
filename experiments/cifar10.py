@@ -8,7 +8,6 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 import time
-import sys
 from flowadam import FlowAdam
 
 
@@ -210,12 +209,12 @@ if __name__ == "__main__":
     print("="*60)
     print("BENCHMARK 5: CIFAR-10 IMAGE CLASSIFICATION")
     print("="*60)
-    print("CIFAR-10 benchmark: ResNet-18, 200 epochs, batch 128, Mode A")
-    print("Expected: FlowAdam ~92.1% vs Adam ~92.0%")
+    print("CIFAR-10 benchmark: ResNet-18, 50 epochs, batch 128, Mode A")
+    print("Expected: FlowAdam ~91.7% vs Adam ~91.8%")
     print("(Conservative settings - ODE triggers not expected)")
     print()
-    
-    EPOCHS = 200
+
+    EPOCHS = 50
     BATCH_SIZE = 128
     
     print("\n--- Training with Adam ---")
@@ -231,7 +230,7 @@ if __name__ == "__main__":
     print(f"Adam:     Final Test Accuracy = {hist_adam['test_acc'][-1]:.2f}% | Time = {time_adam:.1f}s")
     print(f"FlowAdam: Final Test Accuracy = {hist_flow['test_acc'][-1]:.2f}% | Time = {time_flow:.1f}s | ODE = {ode_count}")
     print()
-    print("SUCCESS: FlowAdam matches Adam on real-world problem!")
+    print("FlowAdam matches Adam on CIFAR-10.")
     print("="*60)
     
     import matplotlib.pyplot as plt

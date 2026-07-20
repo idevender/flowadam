@@ -5,7 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -530,7 +529,7 @@ def run_all_scenarios():
         print(f"    Avg ODE triggers: {np.mean(results['ode_counts']):.0f}")
         
         if best_adamw < adam_mean:
-            print(f"    [WARN]  AdamW WORSE than Adam")
+            print(f"     AdamW WORSE than Adam")
         else:
             print(f"    AdamW vs Adam: {(best_adamw - adam_mean)/adam_mean*100:+.1f}%")
     
@@ -547,7 +546,7 @@ def run_all_scenarios():
         total_wins += r['wins']
     
     print("-" * 100)
-    print(f"TOTAL: FlowAdam wins {total_wins}/15 comparisons")
+    print(f"TOTAL: FlowAdam wins {total_wins}/{len(all_results) * 5} comparisons")
     print("=" * 100)
     
     return all_results
@@ -610,9 +609,9 @@ def main():
         best = max(adam_auc, adamw_auc)
         if flow_auc > best:
             improv = (flow_auc - best) / best * 100
-            print(f"\n[NOTE] FlowAdam WINS by {improv:.1f}%")
+            print(f"\nFlowAdam WINS by {improv:.1f}%")
         else:
-            print(f"\n[FAIL] Baseline wins")
+            print(f"\nBaseline wins")
 
 
 if __name__ == "__main__":

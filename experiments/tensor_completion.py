@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -222,7 +221,7 @@ def run_experiment(config, seeds=[42, 123, 456, 789, 999]):
         flow_times.append(flow_time)
         
         best_baseline = min(adam_rmse, adamw_rmse, adamw100x_rmse)
-        winner = "[OK]" if flow_rmse < best_baseline else "[FAIL]"
+        winner = "" if flow_rmse < best_baseline else ""
         
         print(f"  Seed {seed}: Adam={adam_rmse:.4f}, AdamW={adamw_rmse:.4f}, "
               f"AdamW(100x)={adamw100x_rmse:.4f}, FlowAdam={flow_rmse:.4f} (ODE={ode_count}) {winner}")
@@ -332,9 +331,9 @@ def run_three_scenarios():
         print(f"    FlowAdam vs Best: {improv_vs_best:+.1f}% ({wins_vs_best}/5 wins)")
         
         if improv_vs_best >= 10:
-            print(f"    [NOTE] >10% IMPROVEMENT!")
+            print(f"    >10% IMPROVEMENT!")
         elif flow_mean < best_baseline:
-            print(f"    [NOTE] FlowAdam WINS!")
+            print(f"    FlowAdam WINS!")
     
     
     print("\n")

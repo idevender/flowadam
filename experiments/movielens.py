@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 import copy
 from pathlib import Path
 
@@ -254,6 +253,7 @@ def train_uv_flowadam(residual_data, config, seed):
     no_improve = 0
     best_epoch = 0
     
+    wd = config['weight_decay']
     start = time.time()
     for epoch in range(config['n_epochs']):
         def closure():
@@ -390,12 +390,12 @@ def main():
     print(f"  Improvement: {final_improve:+.2f}% ({wins_final}/{len(seeds)} wins)")
     
     if res_improve > 5:
-        print("\n[NOTE] SIGNIFICANT UV-SPECIFIC IMPROVEMENT!")
+        print("\nSIGNIFICANT UV-SPECIFIC IMPROVEMENT!")
         print("This proves FlowAdam helps coupled UV optimization.")
     elif res_improve > 0:
-        print("\n[OK] Small UV-specific improvement.")
+        print("\nSmall UV-specific improvement.")
     else:
-        print("\n[WARN] No improvement on UV component either.")
+        print("\nNo improvement on UV component either.")
         print("This suggests MovieLens really doesn't have strong UV coupling.")
 
 

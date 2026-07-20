@@ -5,7 +5,6 @@ import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -198,7 +197,7 @@ def plot_results(results, config, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
-        print(f"\n[OK] Plot saved to {save_path}")
+        print(f"\nPlot saved to {save_path}")
     
     plt.show(block=False)
     plt.pause(2)
@@ -226,10 +225,10 @@ def print_summary(results, config):
         print("-" * 70)
         if flow_loss < adam_loss:
             improvement = (adam_loss - flow_loss) / adam_loss * 100
-            print(f"  [NOTE] FlowAdam WINS! {improvement:.1f}% lower test loss")
+            print(f"  FlowAdam WINS! {improvement:.1f}% lower test loss")
         elif flow_loss > adam_loss:
             diff = (flow_loss - adam_loss) / adam_loss * 100
-            print(f"  [FAIL] Adam wins by {diff:.1f}%")
+            print(f"  Adam wins by {diff:.1f}%")
         else:
             print(f"  [TIE] Tie!")
     

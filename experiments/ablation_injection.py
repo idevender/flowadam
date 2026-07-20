@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import math
-import sys
 from torch.optim import Optimizer
 from torchdiffeq import odeint
 

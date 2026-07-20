@@ -68,11 +68,15 @@ optimizer = FlowAdam(
     mode="B",  # "A" for stochastic NN training, "B" for scientific ML/full-batch style
 )
 
+# FlowAdam evaluates the loss multiple times per step (ODE integration),
+# so it requires a closure that zeroes grads, computes the loss, and calls backward().
 for step in range(num_steps):
-    loss = compute_loss(model, batch)
-    loss.backward()
-    optimizer.step()
-    optimizer.zero_grad()
+    def closure():
+        optimizer.zero_grad()
+        loss = compute_loss(model, batch)
+        loss.backward()
+        return loss
+    optimizer.step(closure)
 ```
 
 ## Recommended Settings
@@ -81,12 +85,18 @@ FlowAdam exposes two paper-aligned presets via `mode`:
 | Mode | Typical Use Case | switch_sensitivity | curvature_sensitivity | ode_t_scale |
 |---|---|---:|---:|---:|
 | `A` | Stochastic neural network training | 0.40 | 3.0 | 2.0 |
-| `B` | Scientific ML / stiffer deterministic regimes | 0.50 | 2.0 | 1.0 |
+| `B` | Scientific ML / stiffer deterministic regimes | 0.90 | 0.1 | 0.5 |
 
-You can still override these explicitly through constructor arguments.
+These match Mode A and Mode B in the paper (Section III-E). You can still override
+them explicitly through constructor arguments; several experiment scripts do.
 
 ## Reproducing Paper Experiments
-All experiments are standalone scripts under `experiments/`.
+All experiments are standalone scripts under `experiments/`. Install the experiment
+dependencies first:
+
+```bash
+pip install -r requirements.txt   # or: pip install -e ".[experiments]"
+```
 
 Examples:
 ```bash

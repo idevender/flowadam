@@ -5,7 +5,6 @@ import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys
 import argparse
 
 from flowadam import FlowAdam
@@ -230,7 +229,7 @@ def run_gamma_ablation():
         elif gamma == default_gamma:
             status = "- DEFAULT"
         elif abs(r['mean'] - best_rmse) / best_rmse < 0.02:  # Within 2%
-            status = "[OK] Good"
+            status = "Good"
         else:
             status = ""
         
@@ -251,10 +250,10 @@ def run_gamma_ablation():
     print(f"Relative difference: {relative_diff:.2f}%")
     
     if relative_diff < 2.0:
-        print("\n[OK] VALIDATION PASSED: gamma=0.5 is within 2% of optimal")
-        print("  -> gamma=0.5 is a ROBUST default, NOT cherry-picked")
+        print("\nVALIDATION PASSED: gamma=0.5 is within 2% of optimal")
+        print("  -> gamma=0.5 is a robust default")
     else:
-        print(f"\n[WARN] WARNING: gamma=0.5 differs by {relative_diff:.1f}% from optimal")
+        print(f"\nWARNING: gamma=0.5 differs by {relative_diff:.1f}% from optimal")
         print(f"  -> Consider updating default to gamma={best_gamma}")
     
     robust_gammas = [g for g in gamma_values 
@@ -391,7 +390,7 @@ def run_extended_analysis():
         default_rmse = results[0.5]
         diff = abs(default_rmse - best_rmse) / best_rmse * 100
         
-        status = "[OK]" if diff < 2.0 else "[WARN]"
+        status = "" if diff < 2.0 else ""
         print(f"{scenario_name}: Best gamma={best_gamma} ({best_rmse:.4f}), "
               f"gamma=0.5 ({default_rmse:.4f}), diff={diff:.1f}% {status}")
         
@@ -399,9 +398,9 @@ def run_extended_analysis():
             validated = False
     
     if validated:
-        print("\n[OK] gamma=0.5 VALIDATED across all scenarios")
+        print("\ngamma=0.5 VALIDATED across all scenarios")
     else:
-        print("\n[WARN] gamma=0.5 may need reconsideration for some scenarios")
+        print("\ngamma=0.5 may need reconsideration for some scenarios")
     
     return all_scenario_results
 

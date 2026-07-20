@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import time
-import sys
 import os
 from pathlib import Path
 import urllib.request
@@ -913,9 +912,9 @@ def main():
     print(f"  Wins vs Lion Ext:  {wins_lion_ext}/5")
 
     if imp_vs_adam_ext > 0 and imp_vs_lion_ext > 0:
-        print("\n  [OK] FlowAdam wins EVEN with compute-matched baselines!")
+        print("\n  FlowAdam wins EVEN with compute-matched baselines!")
     else:
-        print("\n  [WARN] Compute-matched baselines catch up - gains may be from extra compute.")
+        print("\n  Compute-matched baselines catch up - gains may be from extra compute.")
 
 
 def generate_jester_figures(seeds, adam_results, flow_results,
@@ -1032,7 +1031,7 @@ def generate_jester_figures(seeds, adam_results, flow_results,
           f"FlowAdam={flow_mean:.4f}+/-{flow_std:.4f}")
     print(f"  Overall: delta=-{overall_improvement:.1f}%, {wins}/{len(seeds)} wins")
     print("-" * 70)
-    print("[OK] Figures saved in IEEE-compatible format")
+    print("Figures saved in IEEE-compatible format")
 
 
 if __name__ == "__main__":
